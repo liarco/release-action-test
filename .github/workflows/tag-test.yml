@@ -23,18 +23,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { owner, repo } = '${{ env.GITHUB_REPOSITORY }}'.split('/');
-            
-            console.log(context);
-            
-            /*const response = await github.request('POST /repos/${{ env.GITHUB_REPOSITORY }}/git/refs', {
-              owner,
-              repo,
+
+            const response = await github.request('POST /repos/' + context.repo.owner + '/' + context.repo.repo + '/git/refs', {
+              context.repo.owner.name,
+              context.repo.name,
               ref: 'refs/heads/latest',
-              sha: '${{ env.GITHUB_SHA }}'
+              sha: context.sha
             });
 
-            console.log(response);*/
-        env:
-          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-          GITHUB_SHA: ${{ env.GITHUB_SHA }}
+            console.log(response);
