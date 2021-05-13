@@ -25,6 +25,8 @@ jobs:
           script: |
             const { owner, repo } = '${{ env.GITHUB_REPOSITORY }}'.split('/');
             
+            console.log('${{ env.GITHUB_REPOSITORY }}', owner, repo);
+            
             const response = await github.request('POST /repos/${{ env.GITHUB_REPOSITORY }}/git/refs', {
               owner,
               repo,
