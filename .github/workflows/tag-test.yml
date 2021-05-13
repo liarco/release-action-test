@@ -30,7 +30,7 @@ jobs:
               sha: context.sha,
             });*/
             
-            await github.request('PATCH /repos/${context.repo.owner}/${context.repo.repo}/git/refs/heads/master', {
+            await github.request(`PATCH /repos/${context.repo.owner}/${context.repo.repo}/git/refs/heads/master`, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/heads/latest',
