@@ -23,9 +23,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            console.log(context.repo.owner, context.repo.repo, context.sha);
-          
-            const response = await github.request("POST /repos/${context.repo.owner}/${context.repo.repo}/git/refs", {
+            const response = await github.request(`POST /repos/${context.repo.owner}/${context.repo.repo}/git/refs`, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/heads/latest',
