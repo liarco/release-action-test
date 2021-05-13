@@ -25,16 +25,16 @@ jobs:
           script: |
             const { owner, repo } = '${{ env.GITHUB_REPOSITORY }}'.split('/');
             
-            console.log('${{ env.GITHUB_REPOSITORY }}', owner, repo);
+            console.log('DEBUG', '${{ env.GITHUB_REPOSITORY }}', owner, repo);
             
-            const response = await github.request('POST /repos/${{ env.GITHUB_REPOSITORY }}/git/refs', {
+            /*const response = await github.request('POST /repos/${{ env.GITHUB_REPOSITORY }}/git/refs', {
               owner,
               repo,
               ref: 'refs/heads/latest',
               sha: '${{ env.GITHUB_SHA }}'
             });
 
-            console.log(response);
+            console.log(response);*/
         env:
           GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
           GITHUB_SHA: ${{ env.GITHUB_SHA }}
