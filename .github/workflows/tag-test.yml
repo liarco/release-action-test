@@ -30,4 +30,4 @@ jobs:
               sha: context.sha,
             });
 
-            console.log(response);
+            console.log(`Tagged "${context.sha}" as the new "latest".`);
