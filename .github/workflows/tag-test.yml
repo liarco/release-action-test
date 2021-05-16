@@ -23,19 +23,19 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            /*const response = await github.request(`POST /repos/${context.repo.owner}/${context.repo.repo}/git/refs`, {
+            const response = await github.request(`POST /repos/${context.repo.owner}/${context.repo.repo}/git/refs`, {
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/heads/latest',
+              ref: 'refs/tags/latest',
               sha: context.sha,
-            });*/
+            });
             
-            await github.request(`PATCH /repos/${context.repo.owner}/${context.repo.repo}/git/refs/heads/latest`, {
+            /*await github.request(`PATCH /repos/${context.repo.owner}/${context.repo.repo}/git/refs/heads/latest`, {
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/heads/latest',
+              ref: 'refs/tags/latest',
               sha: context.sha,
               force: true,
-            });
+            });*/
 
             console.log(`Tagged "${context.sha}" as the new "latest".`);
