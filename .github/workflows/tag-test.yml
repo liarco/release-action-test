@@ -23,19 +23,35 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const response = await github.request(`POST /repos/${context.repo.owner}/${context.repo.repo}/git/refs`, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/latest',
-              sha: context.sha,
-            });
-            
-            /*await github.request(`PATCH /repos/${context.repo.owner}/${context.repo.repo}/git/refs/heads/latest`, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/latest',
-              sha: context.sha,
-              force: true,
-            });*/
+            const tag = 'latest';
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const ref = 'tags/' + tag;
+            const sha = context.sha;
 
-            console.log(`Tagged "${context.sha}" as the new "latest".`);
+            try {
+              console.log(`Creating a new tag: "${tag}"`);
+
+              const response = await github.rest.git.createRef({
+                owner,
+                repo,
+                ref: 'refs/' + ref,
+                sha,
+              });
+            } catch(e) {
+              if (e.message === 'Reference already exists') {
+                console.log('The tag already exists, updating it...');
+
+                const response = await github.rest.git.updateRef({
+                  owner,
+                  repo,
+                  ref,
+                  sha,
+                  force: true,
+                });
+              } else {
+                throw e;
+              }
+            }
+
+            console.log(`Tagged "${sha}" as the new "${tag}".`);
