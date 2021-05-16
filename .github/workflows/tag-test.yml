@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/github-script@v3
         with:
-          github-token: ${{ secrets.WRITE_ACCESS_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const response = await github.request(`POST /repos/${context.repo.owner}/${context.repo.repo}/git/refs`, {
               owner: context.repo.owner,
