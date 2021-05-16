@@ -32,7 +32,7 @@ jobs:
             try {
               console.log(`Creating a new tag: "${tag}"`);
 
-              const response = await github.rest.git.createRef({
+              const response = await github.git.createRef({
                 owner,
                 repo,
                 ref: 'refs/' + ref,
@@ -42,7 +42,7 @@ jobs:
               if (e.message === 'Reference already exists') {
                 console.log('The tag already exists, updating it...');
 
-                const response = await github.rest.git.updateRef({
+                const response = await github.git.updateRef({
                   owner,
                   repo,
                   ref,
